@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct Acao {
+    char nome[100];
+    char area_atuacao[100];
+    double valor_atual;
+    double valor_anterior;
+    double variacao;
+};
+
+void atualizar_valor(struct Acao* acao, double novo_valor) {
+    acao->valor_anterior = acao->valor_atual;
+    acao->valor_atual = novo_valor;
+    acao->variacao = ((acao->valor_atual - acao->valor_anterior) / acao->valor_anterior) * 100;
+}
+
+int main() {
+    struct Acao empresa;
+    strcpy(empresa.nome, "Empresa X");
+    strcpy(empresa.area_atuacao, "Tecnologia");
+    empresa.valor_atual = 100.0;
+    empresa.valor_anterior = 90.0;
+    empresa.variacao = ((empresa.valor_atual - empresa.valor_anterior) / empresa.valor_anterior) * 100;
+
+    printf("Nome da compania: %s\n", empresa.nome);
+    printf("Area de atuacao da compania: %s\n", empresa.area_atuacao);
+    printf("Valor atual da acao: R$%.2f\n", empresa.valor_atual);
+    printf("Variacao da acao: %.2f%%\n", empresa.variacao);
+
+    atualizar_valor(&empresa, 110.0);
+
+    printf("Novo valor atual da acao: R$%.2f\n", empresa.valor_atual);
+    printf("Nova variacao da acao: %.2f%%\n", empresa.variacao);
+
+    return 0;
+}
